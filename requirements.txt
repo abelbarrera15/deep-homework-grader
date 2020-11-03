@@ -1,0 +1,4 @@
+opencv-python==4.4.0.46
+numpy==1.18.5
+imageio==2.9.0
+torchvision==0.7.0

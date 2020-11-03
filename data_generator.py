@@ -15,10 +15,10 @@ img.fill(255)
 
 line_loc = random.randint(100, 1000)
 
-print(line_loc)
-
 cv2.line(img=img, pt1=(0, 100), pt2=(
     1000, 100), color=(0, 0, 0), thickness=2)
+
+latest_location = 100
 
 # above we see we AT A MINIMUM need to give 100 y-diff to be able to draw a circle and put the image
 

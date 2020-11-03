@@ -8,11 +8,12 @@ from torchvision import datasets, transforms
 
 
 class DownloadMNISTData():
-    def __init__(self, fullData: bool, trainAmt: int, testAmt: int, folderLoc: str = './data', jpgConvert: bool = True):
-        self.full_data = full_data
-        self.train_amt = train_amt
-        self.test_amt = test_amt
+    def __init__(self, fullData: bool = True, trainAmt: int = 0, testAmt: int = 0, folderLoc: str = './data', jpgConvert: bool = True):
+        self.fullData = fullData
+        self.trainAmt = trainAmt
+        self.testAmt = testAmt
         self.folderLoc = folderLoc
+        self.jpgConvert = jpgConvert
 
     def loadData(self):
         # DOWNLOAD MINST DATA
@@ -23,38 +24,44 @@ class DownloadMNISTData():
             download=True)
 
         test_datasets = datasets.MNIST(
-            root=folderLoc,
+            root=self.folderLoc,
             train=False,
             # transform=trans_data, #you can find versions of this in use in the nextjournal link or the github
             download=True)
 
         if self.jpgConvert == True:
-            self.__jpgConvert()
+            self.__jpgConvert(train_datasets=train_datasets,
+                              test_datasets=test_datasets)
 
-    def __jpgConvert(self):
+    def __jpgConvert(self, train_datasets, test_datasets):
         if self.fullData == True:
             # FORMAT TO JPEG FORM TO BE ABLE TO SUPERIMPOSE ON CREATED IMAGE
             for idx, (img, _) in enumerate(train_datasets):
-            img.save(
-                folderLoc + '/MNIST/jpg_form/train/{:05d}.jpg'.format(idx))
+                img.save(
+                    self.folderLoc + '/MNIST/jpg_form/train/{:05d}.jpg'.format(idx))
 
             for idx, (img, _) in enumerate(test_datasets):
                 img.save(
-                    folderLoc + '/MNIST/jpg_form/test/{:05d}.jpg'.format(idx))
+                    self.folderLoc + '/MNIST/jpg_form/test/{:05d}.jpg'.format(idx))
 
         else:
             train_count = 0
             for idx, (img, _) in enumerate(train_datasets):
                 img.save(
-                    folderLoc + '/MNIST/jpg_form/train/{:05d}.jpg'.format(idx))
+                    self.folderLoc + '/MNIST/jpg_form/train/{:05d}.jpg'.format(idx))
                 train_count += 1
-                if train_count == trainAmt:
+                if train_count == self.trainAmt:
                     break
 
             test_count = 0
             for idx, (img, _) in enumerate(test_datasets):
                 img.save(
-                    folderLoc + '/MNIST/jpg_form/test/{:05d}.jpg'.format(idx))
+                    self.folderLoc + '/MNIST/jpg_form/test/{:05d}.jpg'.format(idx))
                 test_count += 1
-                if test_count == testAmt:
+                if test_count == self.testAmt:
                     break
+
+
+MNIST_Data_Load = DownloadMNISTData(fullData=False, trainAmt=10, testAmt=10)
+
+MNIST_Data_Load.loadData()

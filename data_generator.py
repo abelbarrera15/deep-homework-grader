@@ -25,6 +25,10 @@ digit_img = cv2.imread('./data/MNIST/jpg_form/test/00000.jpg')
 
 digit_img = cv2.bitwise_not(digit_img)
 
+dig_x, dig_y, dig_channel = digit_img.shape
+
+cv2.circle(digit_img, (int(dig_x/2), int(dig_y/2)), 14, (0, 0, 0), 2)
+
 digit_img_PIL = Image.fromarray(np.uint8(digit_img)).convert(
     'RGB')  # Image.open(digit_img)
 

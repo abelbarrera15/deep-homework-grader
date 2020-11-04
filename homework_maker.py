@@ -31,7 +31,7 @@ class Homework():
             latest_line_loc = 0
             previous_line_loc = 0
 
-            img_PIL = None
+            #img_PIL = None
 
             while latest_line_loc <= 900:
 
@@ -69,8 +69,13 @@ class Homework():
                     img_PIL = Image.fromarray(np.uint8(img)).convert(
                         'RGB')
 
-                    img_PIL.paste(
-                        digit_img_PIL, (random.randint(20, 800), random.randint(latest_line_loc + 10, int(1000*.95))))
+                    if latest_line_loc < 855:
+                        img_PIL.paste(
+                            digit_img_PIL, (random.randint(20, 800), random.randint(latest_line_loc + 5, int(1000*.90))))
+
+                    else:
+                        img_PIL.paste(
+                            digit_img_PIL, (random.randint(20, 800), latest_line_loc + 5))
 
                     img = np.array(img_PIL)
 
@@ -116,7 +121,7 @@ class Homework():
                     'RGB')
 
                 img_PIL.paste(
-                    digit_img_PIL, (random.randint(20, 800), random.randint(int(previous_line_loc), int(latest_line_loc*.95))))
+                    digit_img_PIL, (random.randint(20, 800), random.randint(int(previous_line_loc), int(latest_line_loc*.90))))
 
                 img = np.array(img_PIL)
 
@@ -134,7 +139,7 @@ class Homework():
             latest_line_loc = 0
             previous_line_loc = 0
 
-            img_PIL = None
+            #img_PIL = None
 
             while latest_line_loc <= 900:
 
@@ -172,8 +177,13 @@ class Homework():
                     img_PIL = Image.fromarray(np.uint8(img)).convert(
                         'RGB')
 
-                    img_PIL.paste(
-                        digit_img_PIL, (random.randint(20, 800), random.randint(latest_line_loc + 10, int(1000*.95))))
+                    if latest_line_loc < 855:
+                        img_PIL.paste(
+                            digit_img_PIL, (random.randint(20, 800), random.randint(latest_line_loc + 5, int(1000*.90))))
+
+                    else:
+                        img_PIL.paste(
+                            digit_img_PIL, (random.randint(20, 800), latest_line_loc + 5))
 
                     img = np.array(img_PIL)
 
@@ -227,7 +237,3 @@ class Homework():
 
             imwrite(self.homeworkDataLocation +
                     "/train/{:05d}.jpg".format(index), img_PIL)
-
-
-creator = Homework(numberOfHomeworks_Test=1, numberOfHomeworks_Train=1)
-creator.createHomework()

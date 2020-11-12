@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  ui:
+    build:
+      context: ./dockers/ui
+      dockerfile: Dockerfile
+    container_name: homework-ui
+    # volumes:
+    #   - ./:/app
+    #   - /app/node_modules
+    ports:
+      - "3000:3000"
+
+  # kind:
+  #   privileged: yes
+  #   build:
+  #     context: ./
+  #     dockerfile: ./test/test.Dockerfile
+  #     network: host
+  #   container_name: kind
+  #   depends_on:
+  #     - mssql
+  #   environment:
+  #     RESOURCE_TYPE: vm
+  #     PVC_STORAGE_CLASS: " "
+  #     PVC_STORAGE_ACCESS_MODE: " "
+  #     SQL_SERVER: " "
+  #     SQL_DB: " "
+  #     WAIT_HOSTS: mssql:1433
+  #     WAIT_HOSTS_TIMEOUT: 180

@@ -1,3 +1,4 @@
+# IMPORTANT: THE BELOW ONLY WORKS WITHIN GOOGLE COLLAB
 from keras.utils import np_utils
 from keras.optimizers import Adam
 from keras.layers.convolutional import MaxPooling2D

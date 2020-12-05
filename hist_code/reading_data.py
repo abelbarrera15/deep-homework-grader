@@ -1,3 +1,4 @@
+# IMPORTANT! The below code works best within an ipynb and is just for seeing
 import cv2
 import glob
 import matplotlib.pyplot as plt

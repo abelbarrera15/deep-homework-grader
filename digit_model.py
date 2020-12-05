@@ -1,33 +1,17 @@
 import cv2
-import glob
-#from google.colab.patches import cv2_imshow
 from keras.datasets import mnist
-from keras import models
-from keras import layers
-from PIL import Image, ImageDraw
 import numpy as np
-from keras.datasets import mnist
 from keras.layers import Dense, Flatten
 from keras.layers.convolutional import Conv2D
 from keras.models import Sequential
 from keras.utils import to_categorical
 import matplotlib.pyplot as plt
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.layers import Flatten
-from keras.layers.convolutional import Conv2D
-from keras.layers.convolutional import MaxPooling2D
-from keras.optimizers import Adam
-from keras.utils import np_utils
-
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
 
 example = train_images[100]
-plt.imshow(example.reshape(28, 28), cmap="gray")
-plt.show()
+plt.show(example.reshape(28, 28))
 
 
 print("Shape of X_train: {}".format(train_images.shape))
@@ -65,25 +49,18 @@ model.fit(train_images, train_labels, validation_data=(
 
 def initial_predict(example):
     prediction = model.predict_classes(example.reshape(1, 28, 28, 1))
-    #plt.imshow(example.reshape(28, 28), cmap="gray")
-    # plt.show()
     return prediction
 
 
-plt.imshow(train_images[100].reshape(28, 28), cmap="gray")
-plt.show()
 init = initial_predict(train_images[100])
 print("Predicted class for test dataset image from mnist", init)
 
-### Final - Final
-
 
 def cropping(path):
+    print('i am here')
     imagem = cv2.imread(path, cv2.IMREAD_COLOR)
     # Convert black pixels to white and white to black
     img = cv2.bitwise_not(imagem)
-    plt.imshow(img, cmap='gray')
-    plt.show()
     # Convert to gray-scale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Blur the image to reduce noise
@@ -111,13 +88,10 @@ def cropping(path):
             crop_img = img[i[1] - i[2]:i[1] + i[2], i[0] - i[2]:i[0] + i[2], :]
             cropped.append(crop_img)
     return cropped
-    # plt.imshow(cropped[0],cmap='gray')
 
 
 # Give location of image
-cropped_image = cropping(
-    'C:/Users/Vishal Patil/Desktop/Data Science/Sem 3/Deep Learning Neural Networks/Project/deep-homework-grader-main/data/homework/train/00065.jpg')
-plt.imshow(cropped_image[0], cmap='gray')
+cropped_image = cropping('./data/homework/train/00065.jpg')
 
 
 def predict(images):
@@ -137,14 +111,11 @@ def predict(images):
         y_pred = model.predict_classes(im2arr)
         digits_stored.append(y_pred)
         print("Predicted class is", y_pred)
-        plt.imshow(im_bw, cmap='gray')
-        plt.show()
 
     return digits_stored
 
 
 image_prediction = predict(cropped_image)
-# print(image_prediction[0])
 
 # Matching with existing answer sheet
 
@@ -166,12 +137,10 @@ def matching(image_prediction, standard_array):
 
 # Define standard array which contains answers
 standard_array = np.array([[5], [6], [5]])
-# np.where(standard_array==image_prediction)
-# np.intersect1d(image_prediction,standard_array)
 match = matching(image_prediction, standard_array)
 print("Total marks", match)
 
 
 # Saving model
 
-#model.save('C:/Users/Vishal Patil/Desktop/Data Science/Sem 3/Deep Learning Neural Networks/Project/saved model/model.h5')
+# model.save('./model.h5')

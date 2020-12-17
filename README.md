@@ -5,3 +5,5 @@ As such, we will be using this dataset: http://yann.lecun.com/exdb/mnist/ to be 
 Multiple “images” with circles around them may be found inside of a given file. We will be delineating each “answer” by using lines which will also be created through code like such: https://www.geeksforgeeks.org/python-opencv-cv2-line-method/
 Likely in the case of both the lines and circles, we will need to purposely find ways to morph the objects such that they are not computer perfect and more human-like.
 This should allow us to generate >= 1,000 files to test/train our data on.
+
+https://www.kaggle.com/xainano/handwrittenmathsymbols

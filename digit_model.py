@@ -5,19 +5,10 @@ from keras.layers import Dense, Flatten
 from keras.layers.convolutional import Conv2D
 from keras.models import Sequential
 from keras.utils import to_categorical
-import matplotlib.pyplot as plt
+
+# includes numbers 0-9 + {10:'+',11:'-', 12:'=', 13:'division', 14:'multiplication', 15:'x', 16:'y', 17:'z'}
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
-
-
-example = train_images[100]
-plt.show(example.reshape(28, 28))
-
-
-print("Shape of X_train: {}".format(train_images.shape))
-print("Shape of y_train: {}".format(train_labels.shape))
-print("Shape of X_test: {}".format(train_images.shape))
-print("Shape of y_test: {}".format(test_labels.shape))
 
 train_images = train_images.reshape(60000, 28, 28, 1)
 train_images = train_images.astype('float32') / 255
@@ -42,13 +33,13 @@ def create_model():
     return model
 
 
-model = create_model()
-model.fit(train_images, train_labels, validation_data=(
+digit_model = create_model()
+digit_model.fit(train_images, train_labels, validation_data=(
     test_images, test_labels), epochs=2)
 
 
 def initial_predict(example):
-    prediction = model.predict_classes(example.reshape(1, 28, 28, 1))
+    prediction = digit_model.predict_classes(example.reshape(1, 28, 28, 1))
     return prediction
 
 
@@ -57,7 +48,6 @@ print("Predicted class for test dataset image from mnist", init)
 
 
 def cropping(path):
-    print('i am here')
     imagem = cv2.imread(path, cv2.IMREAD_COLOR)
     # Convert black pixels to white and white to black
     img = cv2.bitwise_not(imagem)
@@ -108,7 +98,7 @@ def predict(images):
         imge = np.resize(resized, (28, 28, 1))
         arr = np.array(imge) / 255
         im2arr = arr.reshape(1, 28, 28, 1)
-        y_pred = model.predict_classes(im2arr)
+        y_pred = digit_model.predict_classes(im2arr)
         digits_stored.append(y_pred)
         print("Predicted class is", y_pred)
 
@@ -143,4 +133,4 @@ print("Total marks", match)
 
 # Saving model
 
-# model.save('./model.h5')
+# digit_model.save('./model.h5')
